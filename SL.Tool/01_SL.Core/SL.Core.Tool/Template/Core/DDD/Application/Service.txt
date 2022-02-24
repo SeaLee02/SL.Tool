@@ -1,0 +1,162 @@
+﻿@using Data.Abstractions.Judge
+@{ 
+   var entityName= EntityJudge.ToLower(@Model.EntityName);  
+}
+using Microsoft.AspNetCore.Http;
+using SL.Data.Abstractions.Query;
+using SL.Excel.Aspose;
+using @(Model.ModuleModel.PrefixSpace).@(Model.ModuleModel.Name).Core.Application.@(Model.EntityName).Dto;
+using @(Model.ModuleModel.PrefixSpace).@(Model.ModuleModel.Name).Core.Domain.@(Model.EntityName);
+using SL.Utils.Helpers;
+using SL.Utils.Map;
+using SL.Utils.Models;
+using SqlSugar;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace @(Model.ModuleModel.PrefixSpace).@(Model.ModuleModel.Name).Core.Application.@(Model.EntityName)
+{
+    /// <summary>
+    /// @Model.TableDesc
+    /// </summary>
+    public class @(Model.EntityName)Service: I@(Model.EntityName)Service
+    {
+        private readonly IMapper _mapper;
+        private readonly I@(Model.EntityName)Repository _@(entityName)Repository;
+
+        public @(Model.EntityName)Service(IMapper mapper, I@(Model.EntityName)Repository @(entityName)Repository)
+        {
+            this._mapper = mapper;
+            this._@(entityName)Repository = @(entityName)Repository;
+        }
+
+        /// <summary>
+        /// 列表
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        public async Task<IResultModel> GetList(@(Model.EntityName)QueryDto dto)
+        {
+            //01直接走实体映射
+            var result = await this._@(entityName)Repository.Find().Filter("!=0").Select(a => new @(Model.EntityName)ListDto
+            {
+                @(Model.TablePrimarkeyName) = a.@(Model.TablePrimarkeyName).SelectAll()
+            }).ToPaginationAsync(dto.Paging);
+            return ResultModel.Success(result);
+
+            //02或者mapper
+            //var result = await this._@(entityName)Repository.Find().Filter("!=0").ToPaginationAsync(dto.Paging);
+            //QueryResultModel<@(Model.EntityName)ListDto> resultDto = _mapper.Map<QueryResultModel<@(Model.EntityName)ListDto>>(result);
+            //return ResultModel.Success(resultDto);
+        }
+
+        /// <summary>
+        /// 详情
+        /// </summary>
+        /// <param name="primaryKey"></param>
+        /// <returns></returns>
+        public async Task<IResultModel> GetInfoById(Guid primaryKey)
+        {
+            var entity = await this._@(entityName)Repository.Get(primaryKey);
+            var result = _mapper.Map<@(Model.EntityName)Dto>(entity);
+            return ResultModel.Success(result);
+        }
+
+        /// <summary>
+        /// 新增
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        public async Task<IResultModel> Add(@(Model.EntityName)AddDto dto)
+        {
+            var entity = _mapper.Map<@(Model.EntityName)Entity>(dto);
+            await this._@(entityName)Repository.Add(entity);
+            return ResultModel.Success("添加成功");
+        }
+
+        /// <summary>
+        /// 编辑
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        public async Task<IResultModel> Update(@(Model.EntityName)AddDto dto)
+        {
+            var entity = await _@(entityName)Repository.Get(dto.@(Model.TablePrimarkeyName));
+            _mapper.Map(dto, entity);
+            await this._@(entityName)Repository.Update(entity);
+            return ResultModel.Success("更新成功");
+        }
+
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="primaryKey"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public async Task<IResultModel> Del(Guid primaryKey)
+        {
+            await this._@(entityName)Repository.SoftDelete(primaryKey);
+            return ResultModel.Success("删除成功");
+        }
+
+        /// <summary>
+        /// 导入
+        /// </summary>
+        /// <param name="formFile"></param>
+        /// <returns></returns>
+        public async Task<IResultModel> ImportExcel(IFormFile formFile)
+        {
+            DataTable dt = new DataTable();
+            List<@(Model.EntityName)ImportDto> data = new List<@(Model.EntityName)ImportDto>();
+            try
+            {
+                using MemoryStream stream = new MemoryStream();
+                await formFile.CopyToAsync(stream);
+                dt = ExcelHelper.Excel2Table(stream);
+                dt.ReplaceColumnName<@(Model.EntityName)ImportDto>();
+                data = dt.Mapper<@(Model.EntityName)ImportDto>(true);
+            }
+            catch
+            {
+                throw new Exception($"请上传正确的模板数据");
+            }
+
+            //验证必填问题
+            var _va = data.ValidationNotNull();
+            if (!_va.isOk)
+            {
+                return ResultModel.Failed(_va.errorMsg);
+            }
+
+            var result = _mapper.Map<List<@(Model.EntityName)Entity>>(data);
+            await this._@(entityName)Repository.AddList(result);
+            return ResultModel.Success($"导入成功数据: {data.Count} ");
+        }
+
+        /// <summary>
+        /// 导出
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        public async Task<byte[]> ExportExcel(@(Model.EntityName)QueryDto dto)
+        {
+            byte[] buff = null;
+            dto.Page.Size = 999999;
+            dto.Page.Index = 1;
+            ResultModel<QueryResultModel<@(Model.EntityName)ListDto>> _cdata = (ResultModel<QueryResultModel<@(Model.EntityName)ListDto>>)await this.GetList(dto);
+            if (_cdata != null)
+            {
+                if (_cdata.Data != null)
+                {
+                    var date = _mapper.Map<List<@(Model.EntityName)ExportDto>>(_cdata.Data.Data);
+                    buff = ExcelHelper.GetExcelForList(date);
+                }
+            }
+            return buff;
+        }
+    }
+}

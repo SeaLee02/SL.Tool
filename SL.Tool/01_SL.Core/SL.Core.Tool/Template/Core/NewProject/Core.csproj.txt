@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+	</PropertyGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\02_src\02_Data\Data.Core\Data.Core.csproj" />
+	  <ProjectReference Include="..\..\..\02_src\03_Module\Module.Abstractions\Module.Abstractions.csproj" />
+	  <ProjectReference Include="..\..\..\02_src\06_Mapper\Mapper\Mapper.csproj" />
+	  <ProjectReference Include="..\..\..\02_src\07_Excel\Excel.Aspose\Excel.Aspose.csproj" />
+	</ItemGroup>
+</Project>

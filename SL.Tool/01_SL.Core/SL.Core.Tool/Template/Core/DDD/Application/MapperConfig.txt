@@ -1,0 +1,41 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using SL.Mapper;
+using AutoMapper;
+using @(Model.ModuleModel.PrefixSpace).@(Model.ModuleModel.Name).Core.Domain.@(Model.EntityName);
+using @(Model.ModuleModel.PrefixSpace).@(Model.ModuleModel.Name).Core.Application.@(Model.EntityName).Dto;
+
+namespace @(Model.ModuleModel.PrefixSpace).@(Model.ModuleModel.Name).Core.Application.@(Model.EntityName)
+{
+    public class MapperConfig : IMapperConfig
+    {
+        /// <summary>
+        /// 进行映射设置
+        /// </summary>
+        /// <param name="cfg"></param>
+        public void Bind(IMapperConfigurationExpression cfg)
+        {
+            //走注解映射
+            //cfg.CreateMap<@(Model.EntityName)AddDto, @(Model.EntityName)Entity>()
+            //.ForMember(dest => dest.xx, opt => opt.MapFrom(src => src.xx));;
+
+            //新增 
+            cfg.CreateMap<@(Model.EntityName)AddDto, @(Model.EntityName)Entity>();
+
+            //导入
+            cfg.CreateMap<@(Model.EntityName)ImportDto, @(Model.EntityName)Entity>();
+
+            //列表
+            cfg.CreateMap<@(Model.EntityName)Entity,@(Model.EntityName)ListDto>();
+            //详情
+            cfg.CreateMap<@(Model.EntityName)Entity, @(Model.EntityName)Dto>();         
+
+            //导出  
+            cfg.CreateMap<@(Model.EntityName)ListDto, @(Model.EntityName)ExportDto>();
+
+        }
+    }
+}

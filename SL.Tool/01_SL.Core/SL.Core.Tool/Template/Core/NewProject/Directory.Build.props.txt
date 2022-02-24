@@ -1,0 +1,26 @@
+﻿<Project>
+	<PropertyGroup>
+		<!--如果Id发生更改,住项目里面需要把旧的删除(生成module文件夹的时候,旧的不会删除,需要手动)-->
+		<Id>@Model.Id</Id>
+		<Code>@Model.Name</Code>
+		<Name>...管理</Name>
+		<Authors>SeaLee</Authors>
+		<Icon>permission</Icon>
+		<Version>0.0.1</Version>
+		<Description>Module @(Model.Name)($(Name)) - $(MSBuildProjectName)</Description>
+		<NoWarn>$(NoWarn);1591</NoWarn>
+		<LangVersion>Latest</LangVersion>
+		<TargetFramework>netcoreapp3.1</TargetFramework>
+		<RootNamespacePrefix>@Model.PrefixSpace</RootNamespacePrefix>
+		<AssemblyName>$(RootNamespacePrefix).$(MSBuildProjectName)</AssemblyName>
+		<RootNamespace>$(AssemblyName)</RootNamespace>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
+		<!--设置打包路径-->
+		<PackageOutputPath>$(SolutionDir)\_packages</PackageOutputPath>
+		<Company>SeaLee</Company>
+		<Copyright>SeaLee</Copyright>
+		<PackageProjectUrl></PackageProjectUrl>
+		<RepositoryUrl></RepositoryUrl>
+	</PropertyGroup>
+</Project>

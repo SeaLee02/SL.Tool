@@ -1,0 +1,119 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+	  <OutputType>WinExe</OutputType>
+	  <TargetFramework>netcoreapp3.1</TargetFramework>
+	  <UseWPF>true</UseWPF>
+	  <UseWindowsForms>true</UseWindowsForms>
+	  <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
+  </PropertyGroup>
+	<ItemGroup>
+		<None Remove="Resources\icon.ico" />
+		<None Remove="Template\Core\Controller\Controllers.txt" />
+		<None Remove="Template\Core\DDD\Application\Dto\In_AddDto.txt" />
+		<None Remove="Template\Core\DDD\Application\Dto\In_ImportDto.txt" />
+		<None Remove="Template\Core\DDD\Application\Dto\In_QueryDto.txt" />
+		<None Remove="Template\Core\DDD\Application\Dto\Out_Dto.txt" />
+		<None Remove="Template\Core\DDD\Application\Dto\Out_ExportDto.txt" />
+		<None Remove="Template\Core\DDD\Application\Dto\Out_ListDto.txt" />
+		<None Remove="Template\Core\DDD\Application\IService.txt" />
+		<None Remove="Template\Core\DDD\Application\MapperConfig.txt" />
+		<None Remove="Template\Core\DDD\Application\Service.txt" />
+		<None Remove="Template\Core\DDD\Domain\Entity.Extend.txt" />
+		<None Remove="Template\Core\DDD\Domain\Entity.txt" />
+		<None Remove="Template\Core\DDD\Domain\IRepository.txt" />
+		<None Remove="Template\Core\DDD\Infrastructure\ModuleServicesConfigurator.txt" />
+		<None Remove="Template\Core\DDD\Infrastructure\Repositories\Repository.txt" />
+		<None Remove="Template\Core\NewProject\Core.csproj.txt" />
+		<None Remove="Template\Core\NewProject\Directory.Build.props.txt" />
+		<None Remove="Template\Core\NewProject\Sln.txt" />
+		<None Remove="Template\Core\NewProject\Web.BaseController.txt" />
+		<None Remove="Template\Core\NewProject\Web.csproj.txt" />
+		<None Remove="Template\Core\NewProject\WebHost.csproj.txt" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="Template\Core\Controller\Controllers.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Template\Core\DDD\Application\Dto\In_AddDto.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Template\Core\DDD\Application\Dto\In_ImportDto.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Template\Core\DDD\Application\Dto\In_QueryDto.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Template\Core\DDD\Application\Dto\Out_Dto.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Template\Core\DDD\Application\Dto\Out_ExportDto.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Template\Core\DDD\Application\Dto\Out_ListDto.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Template\Core\DDD\Application\IService.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Template\Core\DDD\Application\MapperConfig.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Template\Core\DDD\Application\Service.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Template\Core\DDD\Domain\Entity.Extend.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Template\Core\DDD\Domain\Entity.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Template\Core\DDD\Domain\IRepository.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Template\Core\DDD\Infrastructure\ModuleServicesConfigurator.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Template\Core\DDD\Infrastructure\Repositories\Repository.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Template\Core\NewProject\Core.csproj.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Template\Core\NewProject\Directory.Build.props.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Template\Core\NewProject\Sln.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Template\Core\NewProject\Web.BaseController.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Template\Core\NewProject\Web.csproj.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Template\Core\NewProject\WebHost.csproj.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="HandyControl" Version="3.3.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\00_Data\Adapters\Data.Adapters.Mysql\Data.Adapters.Mysql.csproj" />
+		<ProjectReference Include="..\..\00_Data\Adapters\Data.Adapters.Oracle\Data.Adapters.Oracle.csproj" />
+		<ProjectReference Include="..\..\00_Data\Adapters\Data.Adapters.SqlServer\Data.Adapters.SqlServer.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Resource Include="Resources\icon.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="Template\Web\" />
+	</ItemGroup>
+</Project>

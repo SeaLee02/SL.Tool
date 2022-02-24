@@ -1,0 +1,160 @@
+﻿<hc:Window x:Class="SL.Core.Tool.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SL.Core.Tool"
+        mc:Ignorable="d"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
+        Title="SL.Core 代码生成器-SeaLee"
+        Height="900" 
+        Width="1200"   
+        NonClientAreaBackground="#9C27B0"
+        NonClientAreaForeground="White"
+        BorderBrush="#9C27B0"
+        Icon="Resources/icon.ico" 
+        Background="{DynamicResource RegionBrush}"
+        WindowStartupLocation="CenterScreen" >
+    <!--<hc:Window.NonClientAreaContent>
+        <StackPanel VerticalAlignment="Stretch" Orientation="Horizontal"    >
+            <Menu Margin="10,0,0,0" Background="Transparent" Foreground="White">
+                <MenuItem Header="语言">
+                    <MenuItem Header="中文"/>
+                    <MenuItem Header="英文"/>
+                </MenuItem>
+            </Menu>
+            <Menu Margin="10,0,0,0" Background="Transparent" Foreground="White">
+                <MenuItem Header="主题">
+                    <hc:ColorPicker Name="ColorPicker" SelectedColorChanged="ColorPicker_SelectedColorChanged" />
+                </MenuItem>
+            </Menu>
+        </StackPanel>
+    </hc:Window.NonClientAreaContent>-->
+    <Window.Resources>
+        <Thickness x:Key="ControlMargin">10 5 5 5</Thickness>
+        <Thickness x:Key="CheckMargin">0 0 10 0</Thickness>
+    </Window.Resources>
+    <Border  Margin="0 20 0 0"   CornerRadius="15">
+        <hc:SimpleStackPanel Background="{DynamicResource RegionBrush}"   hc:TitleElement.TitleWidth="120">           
+
+            <hc:Row Margin="{StaticResource ControlMargin}"  Height="36" >
+                <hc:Col Span="20">
+                    <hc:ComboBox                      
+                    hc:InfoElement.TitlePlacement="Left" hc:InfoElement.Title="数据库类型" 
+                 
+                        DisplayMemberPath="Label"
+                    SelectedIndex="{Binding DbType}"
+                    Text="{Binding Path=DbProvider}"
+                    ItemsSource="{Binding DbProviderEnum}" />
+                </hc:Col>               
+            </hc:Row>
+            <hc:Row Margin="{StaticResource ControlMargin}"     Height="36">
+                <hc:Col Span="20">
+                    <hc:TextBox     
+                   hc:InfoElement.TitlePlacement="Left" hc:InfoElement.Title="数据库地址" 
+                      Text="{Binding Path=DataConnection}"
+                    ShowClearButton="True"
+                    />
+                </hc:Col>
+                <hc:Col Span="4">
+                    <Button Content="加载表" Width="100"
+                        Background="#9C27B0" Foreground="White"
+                          Command="{Binding LoadTable}" Margin="10 0 0 0" HorizontalAlignment="Left"   
+                                  hc:IconElement.Geometry="{StaticResource SL.LoadTable}" 
+                        />
+                </hc:Col>
+            </hc:Row>
+            <hc:Row Margin="{StaticResource ControlMargin}"     Height="36">
+                <hc:Col Span="20">
+                    <hc:CheckComboBox 
+                    x:Name="CheckComboBox"    
+                    hc:InfoElement.TitlePlacement="Left" 
+                    hc:InfoElement.Title="表"                                                              
+                    Style="{StaticResource CheckComboBoxPlus}"                                  
+                    ItemsSource="{Binding DbTables,NotifyOnSourceUpdated=True}"    
+                    DisplayMemberPath="TableFullName"
+                    ShowClearButton="True"  
+                    SelectionChanged="CheckComboBox_SelectionChanged" />
+                </hc:Col>
+            </hc:Row>
+            <hc:Row Margin="{StaticResource ControlMargin}"     Height="36">
+                <hc:Col Span="20">
+                    <hc:TextBox 
+                   hc:InfoElement.TitlePlacement="Left" hc:InfoElement.Title="模块名称" 
+                          hc:InfoElement.Necessary="True"
+                   ShowClearButton="True"
+                      Text="{Binding Path=Module}"
+                    />
+                </hc:Col>
+            </hc:Row>
+            <!--<hc:Row Margin="{StaticResource ControlMargin}"     Height="36">
+                <hc:Col Span="20">
+                    <hc:TextBox 
+                   hc:InfoElement.TitlePlacement="Left" hc:InfoElement.Title="控制器" 
+                  ShowClearButton="True"
+                      Text="{Binding Path=CSavePath}"  
+                    />
+                </hc:Col>
+                <hc:Col Span="4">
+                    <Button    hc:IconElement.Geometry="{StaticResource DragHorizontalGeometry}"  Width="100"
+                        Background="#9C27B0" Foreground="White"
+                          Command="{Binding SelectCPath}"   Margin="10 0 0 0" HorizontalAlignment="Left"  
+                        />
+                </hc:Col>
+            </hc:Row>-->
+            <hc:Row Margin="{StaticResource ControlMargin}"     Height="36">
+                <hc:Col Span="20">
+                    <hc:TextBox 
+                   hc:InfoElement.TitlePlacement="Left" hc:InfoElement.Title="保存路径" 
+                  ShowClearButton="True"     hc:InfoElement.Necessary="True"
+                      Text="{Binding Path=SaveCodePath}"
+                    />
+                </hc:Col>
+                <hc:Col Span="4">
+                    <Button  hc:IconElement.Geometry="{StaticResource DragHorizontalGeometry}"  Width="100"
+                        Background="#9C27B0" Foreground="White"
+                          Command="{Binding SelectCodePath}"     Margin="10 0 0 0" HorizontalAlignment="Left"  
+                        />
+                </hc:Col>
+            </hc:Row>
+            <hc:Row Margin="130 5 5 5"     Height="36">
+                <hc:Col Span="20">
+                    <StackPanel Orientation="Horizontal" >
+                        <CheckBox Content="枚举"  IsChecked="{Binding Path=IsEnum}"   Margin="{StaticResource CheckMargin}"  Background="#9C27B0"/>
+                        <CheckBox Content="控制器" IsChecked="{Binding Path=IsController}"  Margin="{StaticResource CheckMargin}" Background="#9C27B0" />
+                        <CheckBox Content="仓储层" IsChecked="{Binding Path=IsDDD}"   Margin="{StaticResource CheckMargin}" Background="#9C27B0" />
+                        <CheckBox Content="新模块" IsChecked="{Binding Path=IsNewProject}"   Margin="{StaticResource CheckMargin}" Background="#9C27B0"/>
+                    </StackPanel>
+                </hc:Col>
+            </hc:Row>
+            <hc:Row Margin="130 5 5 5"     Height="36">
+                <hc:Col Span="20">
+                    <StackPanel Orientation="Horizontal" >
+                        <Button    Content="生成代码" Width="100"
+                        Background="#9C27B0"  Foreground="White"
+                          Command="{Binding CreateCode}"   
+                                     hc:IconElement.Geometry="{StaticResource SL.SaveCode}"
+                                   ToolTip="Ctrl+Shift+R"
+                        />
+                        <Button Content="保存配置" Width="100"
+                   Background="#9C27B0"    Foreground="White"  Margin="50 0 0 0" HorizontalAlignment="Left"   
+                          Command="{Binding SaveConfig}"   
+                          hc:IconElement.Geometry="{StaticResource SL.SaveConfig}" 
+                                ToolTip="Ctrl+Shift+S"
+                        />
+                        <Button Content="加载配置" Width="100"
+                                Background="#9C27B0"    
+                                Foreground="#FFFFFF"  Margin="10 0 0 0" HorizontalAlignment="Left"   
+                                Command="{Binding LoadConfig}"  
+                                hc:IconElement.Geometry="{StaticResource SL.LoadConfig}"  
+                              ToolTip="Ctrl+Shift+D"
+                        />
+                        <!--hc:Poptip.Content="Ctrl+Shift+D" 
+                                hc:Poptip.Placement="Bottom"-->
+                    </StackPanel>
+                </hc:Col>
+            </hc:Row>           
+        </hc:SimpleStackPanel>
+    </Border>
+
+</hc:Window>

@@ -1,0 +1,17 @@
+﻿using SL.Data.Abstractions;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace @(Model.ModuleModel.PrefixSpace).@(Model.ModuleModel.Name).Core.Domain.@(Model.EntityName)
+{
+    /// <summary>
+    /// 用户仓储层
+    /// </summary>
+    public interface I@(Model.EntityName)Repository : IRepository<@(Model.EntityName)Entity>
+    {
+
+    }
+}

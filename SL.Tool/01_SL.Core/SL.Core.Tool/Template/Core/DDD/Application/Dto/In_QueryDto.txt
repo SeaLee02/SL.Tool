@@ -1,0 +1,18 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using SL.Data.Abstractions.Query;
+using System.ComponentModel.DataAnnotations;
+
+namespace @(Model.ModuleModel.PrefixSpace).@(Model.ModuleModel.Name).Core.Application.@(Model.EntityName).Dto
+{
+    /// <summary>
+    /// 查询
+    /// </summary>
+    public class @(Model.EntityName)QueryDto: QueryDto
+    {
+
+    }
+}

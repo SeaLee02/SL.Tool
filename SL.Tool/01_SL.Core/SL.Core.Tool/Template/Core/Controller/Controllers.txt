@@ -1,0 +1,114 @@
+﻿@using Data.Abstractions.Judge
+@{ 
+   var entityName= EntityJudge.ToLower(@Model.EntityName);  
+}
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using @(Model.ModuleModel.PrefixSpace).@(Model.ModuleModel.Name).Core.Application.@(Model.EntityName);
+using @(Model.ModuleModel.PrefixSpace).@(Model.ModuleModel.Name).Core.Application.@(Model.EntityName).Dto;
+using SL.Utils.Models;
+using Swashbuckle.AspNetCore.Annotations;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace @(Model.ModuleModel.PrefixSpace).@(Model.ModuleModel.Name).Web.Controllers
+{
+    
+    [SwaggerTag("@(Model.TableDesc)管理")]
+    public class @(Model.EntityName)Controller : BaseController
+    {
+        private readonly I@(Model.EntityName)Service _@(entityName)Service;
+        public @(Model.EntityName)Controller(I@(Model.EntityName)Service @(entityName)Service)
+        {
+            _@(entityName)Service = @(entityName)Service;
+        }
+
+        /// <summary>
+        /// 列表
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IResultModel> GetList([FromQuery] @(Model.EntityName)QueryDto dto)
+        {
+            return await _@(entityName)Service.GetList(dto);
+        }
+
+        /// <summary>
+        ///  详情
+        /// </summary>
+        /// <param name="primaryKey">主键Id</param>
+        /// <returns></returns>
+        [HttpGet("{primaryKey}")]
+        public async Task<IResultModel> GetInfoById(Guid primaryKey)
+        {
+            return await this._@(entityName)Service.GetInfoById(primaryKey);
+        }
+
+        /// <summary>
+        /// 新增
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IResultModel> Add(@(Model.EntityName)AddDto dto)
+        {
+
+            return await _@(entityName)Service.Add(dto);
+        }
+
+        /// <summary>
+        /// 修改
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        [HttpPut]
+        public async Task<IResultModel> Update(@(Model.EntityName)AddDto dto)
+        {
+
+            return await _@(entityName)Service.Update(dto);
+        }
+
+
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <returns></returns>
+        [HttpDelete("{primaryKey}")]
+        public async Task<IResultModel> Del(Guid primaryKey)
+        {
+            return await _@(entityName)Service.Del(primaryKey);
+        }
+
+        /// <summary>
+        /// 导出文件
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<FileContentResult> ExportExcel(@(Model.EntityName)QueryDto dto)
+        {
+            var buff = await _@(entityName)Service.ExportExcel(dto);
+            FileContentResult returnFile = new FileContentResult(buff, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            returnFile.FileDownloadName = "账号列表.xlsx";
+            return returnFile;
+        }
+
+        /// <summary>
+        /// 导入数据
+        /// </summary>
+        /// <param name="formFile"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IResultModel> ImportExcel(IFormFile formFile)
+        {
+            return await _@(entityName)Service.ImportExcel(formFile);
+        }
+
+
+
+    }
+}

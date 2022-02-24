@@ -1,0 +1,20 @@
+﻿using Microsoft.Extensions.DependencyInjection;
+using SL.Module.Abstractions;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace @(Model.ModuleModel.PrefixSpace).@(Model.ModuleModel.Name).Core.Infrastructure
+{
+    public class ModuleServicesConfigurator : IModuleServicesConfigurator
+    {
+        public void Configure(ModuleConfigureContext context)
+        {
+            var services = context.Services;
+
+           
+        }
+    }
+}

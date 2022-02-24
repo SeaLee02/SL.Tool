@@ -1,0 +1,19 @@
+﻿using SL.Data.Abstractions;
+using SL.Data.Abstractions.Login;
+using SL.Data.Core.Repository;
+using @(Model.ModuleModel.PrefixSpace).@(Model.ModuleModel.Name).Core.Domain.@(Model.EntityName);
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace @(Model.ModuleModel.PrefixSpace).@(Model.ModuleModel.Name).Core.Infrastructure.Repositories
+{
+    public class @(Model.EntityName)Repository : RepositoryAbstract<@(Model.EntityName)Entity>, I@(Model.EntityName)Repository
+    {
+        public @(Model.EntityName)Repository(IUnitOfWork unitOfWork, IUserResolver userResolver) : base(unitOfWork, userResolver)
+        {
+        }
+    }
+}

@@ -1,0 +1,66 @@
+﻿using Microsoft.AspNetCore.Http;
+using @(Model.ModuleModel.PrefixSpace).@(Model.ModuleModel.Name).Core.Application.@(Model.EntityName).Dto;
+using SL.Utils.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace @(Model.ModuleModel.PrefixSpace).@(Model.ModuleModel.Name).Core.Application.@(Model.EntityName)
+{
+     /// <summary>
+    /// @Model.TableDesc
+    /// </summary>
+    public interface I@(Model.EntityName)Service
+    {
+        /// <summary>
+        /// 获取列表
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        Task<IResultModel> GetList(@(Model.EntityName)QueryDto dto);
+
+        /// <summary>
+        /// 获取详情
+        /// </summary>
+        /// <param name="primaryKey"></param>
+        /// <returns></returns>
+        Task<IResultModel> GetInfoById(Guid primaryKey);
+
+        /// <summary>
+        /// 新增
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        Task<IResultModel> Add(@(Model.EntityName)AddDto dto);
+
+        /// <summary>
+        /// 编辑
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        Task<IResultModel> Update(@(Model.EntityName)AddDto dto);
+
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="primaryKey"></param>
+        /// <returns></returns>
+        Task<IResultModel> Del(Guid primaryKey);
+
+        /// <summary>
+        /// 导出
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>     
+        Task<byte[]> ExportExcel(@(Model.EntityName)QueryDto dto);
+
+        /// <summary>
+        /// 导入
+        /// </summary>
+        /// <param name="formFile"></param>
+        /// <returns></returns>
+        Task<IResultModel> ImportExcel(IFormFile formFile);
+    }
+}

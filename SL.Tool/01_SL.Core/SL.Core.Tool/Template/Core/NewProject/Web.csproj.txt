@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+	</PropertyGroup>
+	<Import Project="..\..\module.build.targets" />
+
+	<ItemGroup>
+		<Content Include="_modules*\**\_module.json" PackagePath="contentFiles\any\any">
+			<Pack>true</Pack>
+			<PackageCopyToOutput>true</PackageCopyToOutput>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\02_src\03_Module\Module.Web\Module.Web.csproj" />
+	  <ProjectReference Include="..\@(Model.Name).Core\@(Model.Name).Core.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="_modules\" />
+	</ItemGroup>
+</Project>

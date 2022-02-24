@@ -1,0 +1,9 @@
+﻿Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "@(Model.Id)_@(Model.Name)", "@(Model.Id)_@(Model.Name)", "{0507B84F-D35D-45BE-ADC5-CB820142F656}"
+	ProjectSection(SolutionItems) = preProject
+		01_modules\@(Model.Id)_@(Model.Name)\Directory.Build.props = 01_modules\@(Model.Id)_@(Model.Name)\Directory.Build.props
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "@(Model.Name).Core", "01_modules\@(Model.Id)_@(Model.Name)\@(Model.Name).Core\@(Model.Name).Core.csproj", "{1470196F-6406-44DD-ADBC-FBBA1C397F07}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "@(Model.Name).Web", "01_modules\@(Model.Id)_@(Model.Name)\@(Model.Name).Web\@(Model.Name).Web.csproj", "{C19A5DCF-FCA0-4AF5-B0DC-9F46EAB6ABF5}"
+EndProject
