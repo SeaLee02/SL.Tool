@@ -17,7 +17,7 @@ namespace Data.Adapters.Mysql
     {
         public override DbProvider Provider => DbProvider.Oracle;
 
-         //"server=127.0.0.1;database=m_admin2;userid=root;password=123456",
+        //"server=127.0.0.1;database=m_admin2;userid=root;password=123456",
         public override async Task<DataTable> GetDataTable(string connectionString, string commandText, params MySqlParameter[] parms)
         {
 
@@ -30,7 +30,7 @@ namespace Data.Adapters.Mysql
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
                 return await Task.FromResult(dt);
-            }                                
+            }
         }
 
 
@@ -80,9 +80,14 @@ WHERE
             List<DbTable> list = DataTableHelper.Mapper<DbTable>(dataTable);
             foreach (DbTable item in list)
             {
-                if (item.TableName.Split('_').Count() > 0)
+                var arry = item.TableName.Split('_').ToList() ;
+                if (arry.Count() > 0)
                 {
-                    item.EntityName = item.TableName.Split('_')[1].FirstCharToUpper();
+                    arry.RemoveAt(0);
+                    foreach (var name in arry)
+                    {
+                        item.EntityName += name.FirstCharToUpper();
+                    }
                 }
                 else
                 {
@@ -162,7 +167,7 @@ WHERE
                 item.CShareType = MysqlDbTypeMap.MapCsharpType(item.ColumnType);
                 item.CommonType = MysqlDbTypeMap.MapCommonType(item.ColumnType);
 
-                if ((item.ColumnName.Contains("Id")&&item.CShareType=="string")|| item.ColumnName== "CreatedOrg")
+                if ((item.ColumnName.Contains("Id") && item.CShareType == "string") || item.ColumnName == "CreatedOrg")
                 {
                     item.CShareType = "Guid";
                     item.CommonType = typeof(Guid);
