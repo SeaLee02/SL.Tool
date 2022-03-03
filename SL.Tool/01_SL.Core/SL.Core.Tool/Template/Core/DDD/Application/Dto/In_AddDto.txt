@@ -15,13 +15,25 @@ namespace @(Model.ModuleModel.PrefixSpace).@(Model.ModuleModel.Name).Core.Applic
     {
       @foreach (var item in @Model.DbColumns)
 	    {	
-        @if(!EntityJudge.IgnoreCol().Contains(@item.ColumnName)){		
+		@if(@item.IsPrimaryKey){
+		   @if(!EntityJudge.IgnoreCol().Contains(@item.ColumnName)){		
+	    @:/// <summary>
+	    @:/// @item.ColumnDesc
+	    @:/// </summary>		
+	    @:public @EntityJudge.GetIsNull(item)? @item.ColumnName { get; set; }
+	    @:      
+	    }
+		}else{
+		   @if(!EntityJudge.IgnoreCol().Contains(@item.ColumnName)){		
 	    @:/// <summary>
 	    @:/// @item.ColumnDesc
 	    @:/// </summary>		
 	    @:public @EntityJudge.GetIsNull(item) @item.ColumnName { get; set; }
 	    @:      
 	    }
+		}
+
+     
 	    }
     }
 }

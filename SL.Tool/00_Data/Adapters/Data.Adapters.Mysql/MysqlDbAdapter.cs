@@ -67,7 +67,7 @@ FROM
 	information_schema.TABLES a -- 多主键，只取一个
 	LEFT JOIN ( SELECT * FROM INFORMATION_SCHEMA.`KEY_COLUMN_USAGE` GROUP BY TABLE_NAME ) b ON a.TABLE_NAME = b.table_name 
 	AND a.table_schema = b.table_schema -- 多主键，只取一个
-	LEFT JOIN ( SELECT * FROM Information_schema.COLUMNS c GROUP BY c.table_name ) c ON a.TABLE_NAME = c.TABLE_NAME 
+	LEFT JOIN ( SELECT * FROM Information_schema.COLUMNS c  where   c.ORDINAL_POSITION='1'  GROUP BY c.table_name ) c ON a.TABLE_NAME = c.TABLE_NAME 
 	AND a.table_schema = c.table_schema 
 WHERE
 	a.table_schema = (
@@ -146,7 +146,7 @@ CASE
 FROM
 	Information_schema.COLUMNS 
 WHERE
-	TABLE_NAME = '{tableName}' and table_schema=(select database()) ";
+	TABLE_NAME = '{tableName}' and table_schema=(select database()) order by ORDINAL_POSITION  ";
             DataTable dataTable = await GetDataTable(connectionString, sql);
             List<DbColumn> list = DataTableHelper.Mapper<DbColumn>(dataTable);
 
