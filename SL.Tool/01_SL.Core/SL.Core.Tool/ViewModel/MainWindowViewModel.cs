@@ -455,7 +455,7 @@ namespace SL.Core.Tool.ViewModel
                                 #region 02.Infrastructure
                                 //Repository
                                 string repositoryTemplatePath = path + @"\Template\Core\DDD\Infrastructure\Repositories\Repository.txt";
-                                ModuleHelper.CreateFileCommon(repositoryTemplatePath, $@"{infrastructureBasePath}Repositories\{item.EntityName}",
+                                ModuleHelper.CreateFileCommon(repositoryTemplatePath, $@"{infrastructureBasePath}Repositories",
                                $"{item.EntityName}Repository.cs", item);
 
                                 //ModuleServicesConfigurator
