@@ -43,9 +43,9 @@ namespace @(Model.ModuleModel.PrefixSpace).@(Model.ModuleModel.Name).Web.Control
         /// <param name="primaryKey">主键Id</param>
         /// <returns></returns>
         [HttpGet("{primaryKey}")]
-        public async Task<IResultModel> GetInfoById(Guid primaryKey)
+        public async Task<IResultModel> Edit(Guid primaryKey)
         {
-            return await this._@(entityName)Service.GetInfoById(primaryKey);
+            return await this._@(entityName)Service.Edit(primaryKey);
         }
 
         /// <summary>

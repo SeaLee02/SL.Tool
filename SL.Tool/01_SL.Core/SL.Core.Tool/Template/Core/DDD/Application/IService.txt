@@ -26,7 +26,7 @@ namespace @(Model.ModuleModel.PrefixSpace).@(Model.ModuleModel.Name).Core.Applic
         /// </summary>
         /// <param name="primaryKey"></param>
         /// <returns></returns>
-        Task<IResultModel> GetInfoById(Guid primaryKey);
+        Task<IResultModel> Edit(Guid primaryKey);
 
         /// <summary>
         /// 新增

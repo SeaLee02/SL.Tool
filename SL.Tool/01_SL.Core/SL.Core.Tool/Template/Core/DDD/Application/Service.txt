@@ -59,7 +59,7 @@ namespace @(Model.ModuleModel.PrefixSpace).@(Model.ModuleModel.Name).Core.Applic
         /// </summary>
         /// <param name="primaryKey"></param>
         /// <returns></returns>
-        public async Task<IResultModel> GetInfoById(Guid primaryKey)
+        public async Task<IResultModel> Edit(Guid primaryKey)
         {
             var entity = await this._@(entityName)Repository.Get(primaryKey);
             var result = _mapper.Map<@(Model.EntityName)Dto>(entity);
