@@ -42,14 +42,14 @@ namespace @(Model.ModuleModel.PrefixSpace).@(Model.ModuleModel.Name).Core.Applic
         public async Task<IResultModel> GetList(@(Model.EntityName)QueryDto dto)
         {
             //01直接走实体映射
-            var result = await this._@(entityName)Repository.Find().Filter("!=0").Select(a => new @(Model.EntityName)ListDto
+            var result = await this._@(entityName)Repository.Find().Select(a => new @(Model.EntityName)ListDto
             {
                 @(Model.TablePrimarkeyName) = a.@(Model.TablePrimarkeyName).SelectAll()
             }).ToPaginationAsync(dto.Paging);
             return ResultModel.Success(result);
 
             //02或者mapper
-            //var result = await this._@(entityName)Repository.Find().Filter("!=0").ToPaginationAsync(dto.Paging);
+            //var result = await this._@(entityName)Repository.Find().ToPaginationAsync(dto.Paging);
             //QueryResultModel<@(Model.EntityName)ListDto> resultDto = _mapper.Map<QueryResultModel<@(Model.EntityName)ListDto>>(result);
             //return ResultModel.Success(resultDto);
         }
