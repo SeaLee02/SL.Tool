@@ -5,3 +5,4 @@
 - [x] UI使用 HandyControl
 - [x] RazorEngine.NetCore 制作模板
 - [x] 目前支持：SqlServer,Mysql,Oracle
+- [x] 使用MVVM模式
